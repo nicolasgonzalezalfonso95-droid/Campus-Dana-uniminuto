@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>UNIMINUTO - Gestión de Infraestructura Campus</title>
+  <style>
+    :root {
+      --uniminuto-blue: #002663;
+      --uniminuto-dark: #001a44;
+      --uniminuto-gold: #FFB81C;
+      --uniminuto-gold-hover: #e5a415;
+      --bg-page: #f4f6f9;
+      --surface: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border: #d1d5db;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding-bottom: 50px;
+    }
+
+    /* Barra Superior Institucional */
+    .topbar {
+      background-color: var(--uniminuto-blue);
+      border-bottom: 4px solid var(--uniminuto-gold);
+      padding: 14px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .topbar-brand h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .topbar-brand span {
+      background: var(--uniminuto-gold);
+      color: var(--uniminuto-blue);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn-admin {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid var(--uniminuto-gold);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-admin:hover {
+      background-color: var(--uniminuto-gold);
+      color: var(--uniminuto-blue);
+    }
+
+    /* Contenedor Cuadrado y Limpio */
+    .container {
+      max-width: 900px;
+      margin: 35px auto 0 auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--uniminuto-blue);
+      border-radius: 4px;
+      padding: 28px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .card-header {
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header h2 {
+      font-size: 1.25rem;
+      color: var(--uniminuto-blue);
+      font-weight: 700;
+    }
+
+    .card-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Formulario Estructurado en Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .field-full {
+      grid-column: span 2;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      outline: none;
+      background-color: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--uniminuto-blue);
+      box-shadow: 0 0 0 2px rgba(0, 38, 99, 0.15);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      background-color: var(--uniminuto-blue);
+      color: #ffffff;
+      border: none;
+      padding: 13px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--uniminuto-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <h1>UNIMINUTO</h1>
+      <span>Infraestructura</span>
+    </div>
+    <div>
+      <button class="btn-admin" onclick="accesoAdmin()">Acceso Administrativo 🔒</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="card-header">
+        <h2>Reporte de Falla o Daño en el Campus</h2>
+        <p>Complete la información para clasificar y priorizar la atención del requerimiento.</p>
+      </div>
+
+      <form id="formIncidencia">
+        <div class="form-grid">
+          <div class="field">
+            <label>Ubicación (Sede / Bloque / Salón)</label>
+            <input type="text" id="espacio" placeholder="Ej: Sede Principal - Salón 302" required>
+          </div>
+
+          <div class="field">
+            <label>Tipo de Novedad</label>
+            <select id="tipoDano">
+              <option value="ELECTRICO">Falla Eléctrica (Tomas, Luces, Cables)</option>
+              <option value="AGUA">Hidráulico (Fugas, Baños)</option>
+              <option value="ESTRUCTURAL">Estructural (Paredes, Techos, Vidrios)</option>
+              <option value="MOBILIARIO">Mobiliario (Pupitres, Puertas)</option>
+              <option value="OTRO">Otro Desperfecto</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Nivel de Riesgo (1: Bajo - 5: Peligro Inminente)</label>
+            <input type="number" id="riesgo" min="1" max="5" value="1" required>
+          </div>
+
+          <div class="field">
+            <label>Evidencia Fotográfica (Opcional)</label>
+            <input type="file" id="fotoEvidencia" accept="image/*">
+          </div>
+
+          <div class="field field-full">
+            <label>Descripción Clara del Problema</label>
+            <textarea id="descripcion" placeholder="Describa puntualmente lo sucedido..." required></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Enviar Reporte</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function accesoAdmin() {
+      const clave = prompt("Ingrese la contraseña de administrador:");
+      if (clave === "admin123") {
+        sessionStorage.setItem("admin_auth", "true");
+        window.location.href = "admin/index.html";
+      } else if (clave !== null) {
+        alert("Contraseña incorrecta.");
+      }
+    }
+  </script>
+</body>
+</html>
